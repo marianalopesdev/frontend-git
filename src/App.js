@@ -21,25 +21,33 @@ function App() {
     async function handlerAddProject() {
         //projects.push(`novo projeto ${Date.now()}`);
        // setProjects([...projects, `novo projeto ${Date.now()}`]);
+       const ownerd = document.getElementById('input').value;
+       console.log(ownerd);
+
        const response = await api.post('projects', {
-           title:  `novo projeto ${Date.now()}`,
-           owner: "onwer"});
+           title:  `novo projeto n${Date.now()}`,
+           owner: ownerd});
 
         const project = response.data;
         
         setProjects([...projects, project] );
     }
 
+   
+
 
     return (
         <>
             <Header title="Listando Projetos da API" />
-            <img width={300} src={backgroundImage}/>
+            <img width={100} src={backgroundImage}/>
+            <div id="projects">
             <ul>
             {/* {projects.map(project => <li key={project}>{project}</li>)} */}
-                {projects.map(project => <li key={project.id}>{project.title}</li>)}
+                {projects.map(project => <li key={project.id}>{project.title} - {project.owner}</li>)}
             </ul>
+            <input type="text" id="input"  placeholder="Digite o author do projeto"/>
             <button type="button" onClick={handlerAddProject}>Adicionar projeto</button>
+            </div>
         </>
     );
 
